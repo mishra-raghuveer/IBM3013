@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PERFORMANCE PREDICTION</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .result h2 {
+            margin-top: 0;
+        }
+        .result p {
+            font-size: 18px;
+            color: #333;
+        }
+        .result .promotion-rate {
+            color: green;
+            font-weight: bold;
+        }
+        .result .dropout-rate {
+            color: red;
+            font-weight: bold;
+        }
+        .error {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Performance Prediction</h1>
+    <form method="POST" action="/predict">
+        <label for="projector">Projector %:</label>
+        <input type="text" id="projector" name="projector" value="{{ request.form.projector }}"><br>
+
+        <label for="smart_class">Smart Class %:</label>
+        <input type="text" id="smart_class" name="smart_class" value="{{ request.form.smart_class }}"><br>
+
+        <label for="digital_library">Digital Library %:</label>
+        <input type="text" id="digital_library" name="digital_library" value="{{ request.form.digital_library }}"><br>
+
+        <label for="computer_facility">Computer Facility %:</label>
+        <input type="text" id="computer_facility" name="computer_facility" value="{{ request.form.computer_facility }}"><br>
+
+        <label for="internet_facility">Internet Facility %:</label>
+        <input type="text" id="internet_facility" name="internet_facility" value="{{ request.form.internet_facility }}"><br>
+
+        <label for="playground">Playground %:</label>
+        <input type="text" id="playground" name="playground" value="{{ request.form.playground }}"><br>
+
+        <label for="girls_toilet">Functional Girl's Toilet %:</label>
+        <input type="text" id="girls_toilet" name="girls_toilet" value="{{ request.form.girls_toilet }}"><br>
+
+        <label for="boys_toilet">Functional Boy's Toilet %:</label>
+        <input type="text" id="boys_toilet" name="boys_toilet" value="{{ request.form.boys_toilet }}"><br>
+
+        <label for="electricity">Functional Electricity %:</label>
+        <input type="text" id="electricity" name="electricity" value="{{ request.form.electricity }}"><br>
+
+        <label for="drinking_water">Functional Drinking Water %:</label>
+        <input type="text" id="drinking_water" name="drinking_water" value="{{ request.form.drinking_water }}"><br>
+
+        <label for="hand_wash">Functional Hand Wash %:</label>
+        <input type="text" id="hand_wash" name="hand_wash" value="{{ request.form.hand_wash }}"><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction_promotion is not none and prediction_dropout is not none %}
+        <div class="result">
+            <h2>Prediction Results</h2>
+            <p class="promotion-rate">Promotion Rate: {{ prediction_promotion }}</p>
+            <p class="dropout-rate">Dropout Rate: {{ prediction_dropout }}</p>
+        </div>
+    {% endif %}
+
+    {% if error_message %}
+        <div class="error">
+            <p>{{ error_message }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>
